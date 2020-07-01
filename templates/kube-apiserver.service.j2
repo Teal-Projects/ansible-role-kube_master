@@ -1,0 +1,18 @@
+[Unit]
+Description=Kubernetes API Server
+Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+
+[Service]
+ExecStart=/opt/infra-binaries/kube-apiserver --address=0.0.0.0 \
+ --etcd_servers={{ etcd_servers }} \
+ --logtostderr=true \
+ --port=8080 \
+ --portal_net={{ portal_net }} \
+ --token_auth_file=/etc/kubernetes/tokens.csv \
+ --v=2
+
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
